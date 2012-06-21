@@ -43,7 +43,12 @@ module RequirejsHelper
 
           # Generate digestified paths from the modules spec
           paths = {}
-          modules.each { |m| paths[m] = _javascript_path(m).sub /\.js$/,'' }
+          # modules.each { |m| paths[m] = _javascript_path(m).sub /\.js$/,'' }
+          modules.each do |m| 
+            module_file = m
+            module_file += ".js" unless module_file =~ /\.js$/
+            paths[m] = _javascript_path(module_file).sub /\.js$/,''
+          end
 
           if run_config.has_key? 'paths'
             # Add paths for assets specified by full URL (on a CDN)
